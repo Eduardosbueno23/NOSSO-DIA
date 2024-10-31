@@ -1,4 +1,3 @@
-# NOSSO-DIA
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif; /* Fonte neutra */
+            font-family: 'Arial', sans-serif;
             color: #f0e68a; /* Cor do texto */
             background-image: linear-gradient(to right, #6a11cb, #2575fc); /* Gradiente de fundo */
             margin: 0;
@@ -21,26 +20,27 @@
         .container {
             text-align: center;
             background-color: rgba(40, 40, 40, 0.8); /* Fundo do container */
-            padding: 10px; /* Diminuí o padding */
+            padding: 15px; /* Padding */
             border-radius: 10px; /* Arredondamento do container */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
             position: fixed;
             top: 10px; /* Ajuste na posição superior */
-            left: 10px; /* Ajuste na posição esquerda */
+            left: 50%;
+            transform: translateX(-50%); /* Centraliza horizontalmente */
             z-index: 10;
             border: 3px solid #f0e68a; /* Borda dourada */
-            width: 200px; /* Largura do container */
+            width: 90%; /* Largura do container responsiva */
+            max-width: 350px; /* Largura máxima do container */
+            box-sizing: border-box; /* Inclui padding e border na largura */
         }
 
         h1 {
-            font-size: 1.4em; /* Tamanho do título */
-            color: #f0e68a; /* Cor do título */
+            font-size: 1.8em; /* Tamanho do título */
             margin: 0;
         }
 
         .countdown {
             font-size: 1.4em; /* Tamanho da contagem */
-            color: #f0e68a; /* Cor da contagem */
             margin-top: 5px;
         }
 
@@ -48,18 +48,18 @@
             margin-top: 5px;
             font-size: 0.9em; /* Tamanho da fonte do rodapé */
             color: #c0c0c0;
-            text-align: center;
         }
 
         .timeline {
-            margin-top: 120px;
+            margin-top: 150px;
             width: 90%;
-            max-width: 800px;
+            max-width: 800px; /* Largura máxima da linha do tempo */
             padding: 20px;
             position: relative;
             background-color: rgba(45, 45, 45, 0.95);
             border-radius: 10px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+            box-sizing: border-box; /* Inclui padding e border na largura */
         }
 
         .timeline::after {
@@ -77,7 +77,7 @@
         .timeline-item {
             display: flex;
             width: 100%;
-            padding: 20px 0;
+            padding: 15px 0; /* Ajuste no padding */
             position: relative;
             transition: transform 0.2s ease;
             align-items: center;
@@ -107,18 +107,19 @@
         }
 
         .timeline-content {
-            padding: 20px;
+            padding: 15px;
             background-color: rgba(45, 45, 45, 0.95);
             border-radius: 10px;
-            width: 45%;
+            width: 100%; /* Largura total do conteúdo */
+            max-width: 400px; /* Largura máxima do conteúdo */
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
             border: 2px solid #f0e68a; /* Borda dourada */
             position: relative;
+            margin: 0 auto; /* Centraliza o conteúdo */
         }
 
         .timeline-content img {
-            width: 100%;
-            max-width: 300px; /* Tamanho máximo das imagens */
+            width: 100%; /* Largura total da imagem */
             height: auto; /* Mantém a proporção da imagem */
             border-radius: 10px;
             border: 2px solid #f0e68a; /* Borda das imagens */
@@ -134,6 +135,29 @@
             color: #f0e68a; /* Cor da legenda */
             margin-top: 10px;
             text-align: center;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5em; /* Ajusta o tamanho do título em telas pequenas */
+            }
+
+            .countdown {
+                font-size: 1.2em; /* Ajusta o tamanho da contagem em telas pequenas */
+            }
+
+            .footer {
+                font-size: 0.8em; /* Ajusta o tamanho do rodapé em telas pequenas */
+            }
+
+            .timeline-content {
+                max-width: 100%; /* Largura total em telas pequenas */
+            }
+
+            .caption {
+                font-size: 1em; /* Ajusta o tamanho da legenda em telas pequenas */
+            }
         }
     </style>
 </head>
@@ -220,22 +244,28 @@
     </div>
 
     <script>
-        let startTime = new Date('2023-11-02T21:09:00Z'); // Data de início do cronômetro
-        const countdownElement = document.getElementById('countdown');
+        const countdownContainer = document.getElementById('countdown');
+        const countdownDate = new Date('2024-11-02T21:09:00').getTime();
 
-        function updateCountdown() {
-            const now = new Date();
-            const timeDiff = now - startTime;
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
 
-            const seconds = Math.floor((timeDiff / 1000) % 60);
-            const minutes = Math.floor((timeDiff / 1000 / 60) % 60);
-            const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
+            countdownContainer.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-        setInterval(updateCountdown, 1000);
+            if (distance < 0) {
+                clearInterval(x);
+                countdownContainer.innerHTML = "Contagem encerrada!";
+            }
+        };
+
+        const x = setInterval(updateCountdown, 1000);
     </script>
 </body>
 </html>
+
