@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Arial', sans-serif; /* Fonte neutra */
             color: #f0e68a; /* Cor do texto */
             background-image: linear-gradient(to right, #6a11cb, #2575fc); /* Gradiente de fundo */
             margin: 0;
@@ -20,27 +20,26 @@
         .container {
             text-align: center;
             background-color: rgba(40, 40, 40, 0.8); /* Fundo do container */
-            padding: 15px; /* Padding */
+            padding: 10px; /* Diminuí o padding */
             border-radius: 10px; /* Arredondamento do container */
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
             position: fixed;
             top: 10px; /* Ajuste na posição superior */
-            left: 50%;
-            transform: translateX(-50%); /* Centraliza horizontalmente */
+            left: 10px; /* Ajuste na posição esquerda */
             z-index: 10;
             border: 3px solid #f0e68a; /* Borda dourada */
-            width: 90%; /* Largura do container responsiva */
-            max-width: 350px; /* Largura máxima do container */
-            box-sizing: border-box; /* Inclui padding e border na largura */
+            width: 200px; /* Largura do container */
         }
 
         h1 {
-            font-size: 1.8em; /* Tamanho do título */
+            font-size: 1.4em; /* Tamanho do título */
+            color: #f0e68a; /* Cor do título */
             margin: 0;
         }
 
         .countdown {
             font-size: 1.4em; /* Tamanho da contagem */
+            color: #f0e68a; /* Cor da contagem */
             margin-top: 5px;
         }
 
@@ -48,18 +47,18 @@
             margin-top: 5px;
             font-size: 0.9em; /* Tamanho da fonte do rodapé */
             color: #c0c0c0;
+            text-align: center;
         }
 
         .timeline {
-            margin-top: 150px;
+            margin-top: 120px;
             width: 90%;
-            max-width: 800px; /* Largura máxima da linha do tempo */
+            max-width: 800px;
             padding: 20px;
             position: relative;
             background-color: rgba(45, 45, 45, 0.95);
             border-radius: 10px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
-            box-sizing: border-box; /* Inclui padding e border na largura */
         }
 
         .timeline::after {
@@ -77,7 +76,7 @@
         .timeline-item {
             display: flex;
             width: 100%;
-            padding: 15px 0; /* Ajuste no padding */
+            padding: 20px 0;
             position: relative;
             transition: transform 0.2s ease;
             align-items: center;
@@ -107,19 +106,18 @@
         }
 
         .timeline-content {
-            padding: 15px;
+            padding: 20px;
             background-color: rgba(45, 45, 45, 0.95);
             border-radius: 10px;
-            width: 100%; /* Largura total do conteúdo */
-            max-width: 400px; /* Largura máxima do conteúdo */
+            width: 45%;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
             border: 2px solid #f0e68a; /* Borda dourada */
             position: relative;
-            margin: 0 auto; /* Centraliza o conteúdo */
         }
 
         .timeline-content img {
-            width: 100%; /* Largura total da imagem */
+            width: 100%;
+            max-width: 300px; /* Tamanho máximo das imagens */
             height: auto; /* Mantém a proporção da imagem */
             border-radius: 10px;
             border: 2px solid #f0e68a; /* Borda das imagens */
@@ -136,36 +134,13 @@
             margin-top: 10px;
             text-align: center;
         }
-
-        /* Estilos responsivos */
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.5em; /* Ajusta o tamanho do título em telas pequenas */
-            }
-
-            .countdown {
-                font-size: 1.2em; /* Ajusta o tamanho da contagem em telas pequenas */
-            }
-
-            .footer {
-                font-size: 0.8em; /* Ajusta o tamanho do rodapé em telas pequenas */
-            }
-
-            .timeline-content {
-                max-width: 100%; /* Largura total em telas pequenas */
-            }
-
-            .caption {
-                font-size: 1em; /* Ajusta o tamanho da legenda em telas pequenas */
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container" id="countdown-container">
         <h1>Cronômetro do Nosso Dia</h1>
         <div class="countdown" id="countdown">0d 0h 0m 0s</div>
-        <div class="footer">Contagem a partir de 02/11/2024 às 21:09</div>
+        <div class="footer">Contagem a partir de 02/11/2023 às 21:09</div>
     </div>
 
     <div class="timeline">
@@ -178,7 +153,7 @@
         <div class="timeline-item">
             <div class="timeline-content">
                 <img src="images/foto2.jpeg" alt="Momento 2">
-                <div class="caption">Dezembro 2024 - 1 Mês</div>
+                <div class="caption">Dezembro 2023 - 1 Mês</div>
             </div>
         </div>
         <div class="timeline-item">
@@ -244,28 +219,23 @@
     </div>
 
     <script>
-        const countdownContainer = document.getElementById('countdown');
-        const countdownDate = new Date('2024-11-02T21:09:00').getTime();
+        const countdownDate = new Date("2023-11-02T21:09:00").getTime();
+        const now = new Date().getTime();
+        const distance = now - countdownDate; // Alteração aqui para calcular a diferença de tempo desde a data específica
 
         const updateCountdown = () => {
             const now = new Date().getTime();
-            const distance = countdownDate - now;
+            const distance = now - countdownDate; // Calcular a distância atual
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            countdownContainer.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            if (distance < 0) {
-                clearInterval(x);
-                countdownContainer.innerHTML = "Contagem encerrada!";
-            }
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
         };
 
-        const x = setInterval(updateCountdown, 1000);
+        setInterval(updateCountdown, 1000); // Atualiza a contagem a cada segundo
     </script>
 </body>
 </html>
-
